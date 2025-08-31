@@ -3,7 +3,10 @@
 Plataforma multiplataforma que conecta prestadores de pequenos serviços (jardinagem, aulas, consertos etc.) a clientes, com foco em impacto social local.
 
 ## Problema abordado e justificativa
-Em centros urbanos como Fortaleza, trabalhadores informais têm dificuldade de alcançar clientes com segurança, transparência e escala. O Desenrola Aí cria um canal confiável de busca, avaliação e contratação de serviços.
+Com base em observações diretas e conversas com trabalhadores informais e prestadores de serviços na região de Fortaleza, verificou-se que uma parcela significativa da população recorre ao trabalho informal e enfrenta desafios para a divulgação do seu trabalho. Muitos moradores possuem habilidades em pequenos serviços (jardinagem, consertos, aulas particulares etc.), mas, apesar de utilizarem redes sociais como o Instagram para divulgação, não contam com um sistema que ofereça maior segurança e avaliação por parte de outros usuários. Isso se traduz em incertezas tanto para os prestadores de serviços — que buscam um canal confiável para ofertar seus serviços — quanto para os potenciais clientes, que necessitam de uma plataforma ágil e segura para encontrar, avaliar e contratar prestadores confiáveis.
+
+Diante disso, pensou-se em construir uma plataforma que conecte prestadores de pequenos serviços e clientes, facilitando a busca, solicitação e contratação de serviços locais.
+
 
 ### Relação com os ODS
 - **ODS 11 – Cidades e Comunidades Sustentáveis (ênfase principal)**: fortalece economias de bairro, reduz deslocamentos desnecessários e facilita acesso a serviços urbanos.
@@ -23,19 +26,17 @@ Em centros urbanos como Fortaleza, trabalhadores informais têm dificuldade de a
 **Fora do escopo (backlog)**: pagamentos online, avaliações/comentários, push notifications, relatórios.
 
 ## Visão geral da arquitetura
-```mermaid
-flowchart TD
-    A[Usuário (Cliente/Prestador)] -->|Web/Mobile| B[Frontend - Web Responsivo (HTML/CSS/JS/Bootstrap)]
-    A -->|App Prototype| C[Protótipo Mobile - Figma]
-    B -->|REST API| D[Backend - Node.js/Express ou Java]
-    D --> E[(Banco de Dados - SQLite/MySQL)]
-    D --> F[Integração Externa - Notificação (SMS/WhatsApp)]
-```
+flowchart LR
+  U[Usuario] --> W[Frontend Web]
+  W --> API[API REST]
+  API --> DB[(Database)]
+  API --> EXT[Servico Externo de Notificacao]
+
 
 ## Tecnologias propostas
 - **Frontend**: HTML, CSS, JavaScript, Bootstrap
 - **Protótipos Mobile**: Figma
-- **Backend**: Node.js/Express **ou** Java
+- **Backend**: Node.js/Express
 - **Banco de Dados**: SQLite (dev) / MySQL (prod)
 - **APIs**: REST/HTTP
 - **Ferramentas**: Git/GitHub, Swagger/OpenAPI, Postman/Insomnia, Draw.io
@@ -52,11 +53,11 @@ flowchart TD
 | 7. Encerramento | Validação final, ajustes, entrega | 2025-12-15 |
 
 ## Integrantes da equipe e papéis
-- **Francisco Riomar Barros Filho** – Product Owner, UX/UI
-- **Francisco Augusto de Oliveira Filho** – Dev Frontend
+- **Francisco Riomar Barros Filho** – Product Owner, UX/UI, Responsável pela documentação
+- **Francisco Augusto de Oliveira Filho** – QA (Qualidade e Testes)
 - **Lucas Pires Albuquerque** – Dev Frontend
-- **Cezarnildo Moreira da Silva** – Dev Backend
-- **José Claudecir Silva de Lima** – QA (Qualidade e Testes)
-- **Francisco Rodrigues de Oliveira Lima** – Responsável pela Documentação
+- **Cezarnildo Moreira da Silva** – Dev Front-end
+- **José Claudecir Silva de Lima** – Dev Back-end
+- **Francisco Rodrigues de Oliveira Lima** – Dev Back-end
 
 > Documento alinhado à disciplina **N705 – Projeto Aplicado Multiplataforma Etapa 1** e integrado com a **N703 – Técnicas de Integração de Sistemas**.
