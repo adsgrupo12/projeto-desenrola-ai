@@ -20,6 +20,10 @@ Plataforma que conecta prestadores de serviços locais e clientes, com ênfase n
 - **RF08**: Ofertante aprova/recusa solicitações.
 - **RF09**: Registrar status de contratação (ex.: Em negociação, Confirmado).
 - **RF10 (Opcional)**: Mensagens entre cliente e ofertante dentro da plataforma.
+- **RF11**: Buscar endereço por CEP (ViaCEP): ao digitar CEP, sistema preenche logradouro/bairro/cidade/UF.
+- **RF12**: Geocodificar endereço: backend converte endereço em lat/lng via API externa e salva.
+- **RF13**: Exibir no mapa (Leaflet): mostrar marcador no local do serviço; permitir ajustar posição manualmente (drag).
+- **RF14**: Revalidação: ao alterar CEP/endereço, refazer consulta ViaCEP + geocoding.
 
 ## 4. Requisitos Não Funcionais (RNF)
 - **RNF01 – Usabilidade**: interface simples e responsiva.
@@ -28,6 +32,10 @@ Plataforma que conecta prestadores de serviços locais e clientes, com ênfase n
 - **RNF04 – Desempenho**: resposta de até 2s em conexões normais.
 - **RNF05 – Observabilidade**: logs mínimos de auditoria (login, criação/edição de serviços).
 - **RNF06 – Conformidade**: LGPD – consentimento e política de privacidade (futuro).
+- **RNF07**: Proxy e segurança: consumir ViaCEP e Geocoding via backend com timeout, tratamento de erro e logs.
+- **RNF08**: Rate limit/cache: cache em memória (ex.: 15 min) para CEP e geocoding; respeitar limites das APIs.
+- **RNF09**: LGPD: tratar endereço/lat/lng como dado pessoal; restringir acesso por papéis; mascarar nos logs.
+- **RNF10** – Observabilidade: log de latência/status das chamadas externas.
 
 ## 5. Regras de Negócio (RN)
 - **RN01**: Um serviço pertence a um único prestador.
@@ -41,6 +49,8 @@ Plataforma que conecta prestadores de serviços locais e clientes, com ênfase n
 - **US02 (Prestador)**: Como prestador, quero cadastrar meus serviços para ser encontrado por novos clientes.
 - **US03 (Prestador)**: Como prestador, quero aprovar/recusar solicitações para organizar meus atendimentos.
 - **US04 (Cliente)**: Como cliente, quero solicitar a contratação dentro da plataforma para registrar o acordo.
+- **US05 (CLiente)**: “Como cliente, ao digitar meu CEP, quero ver o endereço preenchido automaticamente.”
+- **US06 (Prestador)**: Como prestador, quero ver o mapa com o ponto onde realizarei o serviço.
 
 ## 7. Critérios de aceitação (amostras)
 - **CA01**: Dado um prestador autenticado, quando cadastrar um serviço válido, então o serviço fica visível na listagem.
