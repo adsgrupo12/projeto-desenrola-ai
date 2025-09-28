@@ -71,6 +71,3 @@ flowchart TD
 - **Jose Claudecir Silva de Lima** – Dev Backend
 - **Francisco Rodrigues de Oliveira Lima** – analista de testes e qualidade
   
-
-
-> Documento alinhado a disciplina **N705 – Projeto Aplicado Multiplataforma Etapa 1** e integrado com a **N703 – Tecnicas de Integracao de Sistemas**, adaptado a partir da experiencia com **N697 – Desenvolvimento de Software em Nuvem**.
