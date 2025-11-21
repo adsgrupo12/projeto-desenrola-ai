@@ -1,4 +1,4 @@
-const API_BASE = window.localStorage.getItem('apiBase') || 'http://localhost:3001';
+const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'https://desenrola-ai-teste.onrender.com';
 
 let currentUser = null;
 let requestsCache = [];
