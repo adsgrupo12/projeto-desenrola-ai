@@ -1,0 +1,1 @@
+﻿-- Placeholder para export de esquema Parse ou scripts auxiliares.

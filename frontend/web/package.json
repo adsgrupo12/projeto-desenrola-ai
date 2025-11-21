@@ -1,0 +1,12 @@
+{
+  "name": "desenrola-frontend-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve public",
+    "build": "echo \"Static site - no build step\""
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
+  }
+}

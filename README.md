@@ -1,73 +1,177 @@
-# Desenrola Aí – Uma plataforma que conecta profissionais e clientes
+# Desenrola Aí — Plataforma que conecta profissionais e clientes
 
 Projeto de sistema multiplataforma que conecta prestadores de pequenos serviços (jardinagem, aulas, consertos etc.) a clientes, com foco em impacto social local.
 
 ## Problema abordado e justificativa
-Com base em observações diretas e conversas com trabalhadores informais e prestadores de serviços na região de Fortaleza, verificou-se que uma parcela significativa da população recorre ao trabalho informal e enfrenta desafios para a divulgação do seu trabalho. Muitos moradores possuem habilidades em pequenos serviços (jardinagem, consertos, aulas particulares etc.), mas, apesar de utilizarem redes sociais como o Instagram para divulgação, não contam com um sistema que ofereça maior segurança e avaliação por parte de outros usuários. Isso se traduz em incertezas tanto para os prestadores de serviços — que buscam um canal confiável para ofertar seus serviços — quanto para os potenciais clientes, que necessitam de uma plataforma ágil e segura para encontrar, avaliar e contratar prestadores confiáveis.
+Em Fortaleza, muitos trabalhadores informais têm dificuldade de divulgar seus serviços e não contam com avaliações/confiabilidade. A plataforma facilita busca, solicitação e contratação de serviços locais com mais segurança.
 
-Diante disso, pensou-se em construir uma plataforma que conecte prestadores de pequenos serviços e clientes, facilitando a busca, solicitação e contratação de serviços locais.
-
-
-### Relacao com os ODS
-- **ODS 11 – Cidades e Comunidades Sustentaveis (enfase principal)**: fortalece economias de bairro, reduz deslocamentos desnecessarios e facilita acesso a servicos urbanos.
-- **ODS 8 – Trabalho Decente e Crescimento Economico**: incentiva geracao de renda e inclusao produtiva.
-- **ODS 10 – Reducao das Desigualdades**: amplia acesso a oportunidades e informacoes.
+### Relação com os ODS
+- **ODS 11 – Cidades e Comunidades Sustentáveis** (ênfase): economias de bairro, menos deslocamentos.
+- **ODS 8 – Trabalho Decente e Crescimento Econômico**: geração de renda e inclusão produtiva.
+- **ODS 10 – Redução das Desigualdades**: amplia acesso a oportunidades.
 
 ## Objetivos do sistema
-- Cadastro/autenticacao de usuarios (clientes e prestadores)
-- Cadastro/edicao/exclusao de servicos
+- Cadastro/autenticação de usuários (clientes e prestadores)
+- Cadastro/edição/exclusão de serviços
 - Busca com filtros por categoria
-- Solicitacao de contratacao com registro de status
-- Integracao Frontend (Vercel) e Backend (Back4App Parse)
-- Testes de API documentados em Postman
-- Prototipos multiplataforma (web + mobile via Figma)
+- Solicitação de contratação com registro de status
+- Integração Frontend (web) e Backend (Parse/Back4App)
+- Testes e documentação de API
 
 ## Escopo do MVP
-**Incluido**: cadastro, login, CRUD de servicos, busca/filtros, solicitacoes e controle de acesso, integracao Frontend/Backend.  
-**Fora do escopo (backlog)**: pagamentos online, avaliacoes/comentarios, notificacoes push, geolocalizacao.
+Incluído: auth, CRUD de serviços, busca/filtros, solicitações e controle de acesso, integrações ViaCEP/geo.  
+Backlog: pagamentos, avaliações/comentários, notificações push, geolocalização avançada.
 
-## Visao geral da arquitetura
+## Visão geral da arquitetura
 ```mermaid
 flowchart TD
-  A[Usuario] -->|Web| B[Frontend Vercel Leaflet]
-  B -->|REST API Parse| C[Back4App Parse Server]
-  C --> D[(Database NoSQL Back4App)]
+  A[Usuário] -->|Web| B[Frontend]
+  B -->|REST API| C[Backend Parse/Back4App]
+  C --> D[(Database Back4App)]
   C -->|CEP| E[API ViaCEP]
-  C -->|Geocoding| F[API Nominatim ou Mapbox]
-  B -->|Map Tiles| G[OSM Tiles ou Mapbox Tiles]
-
+  C -->|Geocoding| F[API Nominatim]
 ```
 
-## Tecnologias propostas
-- **Frontend**: HTML5, CSS, JavaScript, Bootstrap
-- **Hospedagem Frontend**: Vercel
-- **Backend**: Back4App (Parse Server) com Cloud Code em JavaScript
-- **Banco de Dados**: NoSQL (classes e queries do Parse)
-- **API**: REST API Parse Server
-- **Testes de API**: Postman
-- **Ambiente de Desenvolvimento**: VS Code
-- **Controle de Versao**: GitHub
-- **Prototipacao Mobile**: Figma
-- **APIs externas**: ViaCEP (CEP→endereço) + Nominatim/Mapbox/Google (endereço→lat/lng)
-- **Mapas**: Leaflet + OSM/Mapbox Tiles
+## Tecnologias
+- Frontend: HTML, CSS, JavaScript, Bootstrap
+- Backend: Node.js + Express + Parse SDK (Back4App)
+- Banco: Classes Parse (NoSQL) no Back4App
+- APIs externas: ViaCEP (CEP→endereço), Nominatim (geocoding)
+- Testes: Jest/Supertest (backend)
 
-## Cronograma para Etapa 2 (N708)
-| Fase | Atividades principais | Data prevista |
-|------|------------------------|---------------|
-| 1. Iniciacao | Revisao do planejamento e alinhamento com orientador | 02-09-2025 |
-| 2. Planejamento detalhado | Refinamento de requisitos e modelagem final (Parse classes, Cloud Code) | 05-09-2025 |
-| 3. Configuração do Ambiente de desenvolvimento | Ambiente de desenvolvimento pronto (ferramentas, repositório, etc) | 08-09-2025 |
-| 4. Implementação – Parte 1 | Implementação dos requisitos RF11 a RF14 (Front-end e Back-end) | 19-09-2025 |
-| 5. Entrega parcial | Entrega da atividade completa da disciplina N705 e N703 (Testes de integração das APIs, Documentação e implementação dos requisitos RF11 a RF14| 27-09-2025 |
-| 6. Implementação – Parte 2 | Implementação dos requisitos RF01 a RF10 | 17-10-2025 | 
-| 7. Testes | Testes com Postman e validacao de fluxos | 24-10-2025 |
-| 8. Encerramento | Ajustes finais e entrega oficial | 07-11-2025 |
+## Estrutura do repositório
+- `backend/`: API Node.js + Express + Parse (Back4App)
+- `frontend/web/`: frontend web consumindo a API
+- `database/`: referência de schema
+- `docs/`: requisitos, arquitetura, modelo de dados e documentação de API
+- `prototypes/`: protótipos Figma (web e mobile)
+- `validation/`: público-alvo, relatório e evidências de validação
 
-## Integrantes da equipe e papeis
-- **Francisco Riomar Barros Filho** – Product Owner, UX/UI, Responsável pela documentação
-- **Francisco Augusto de Oliveira Filho** – Dev Frontend
-- **Lucas Pires Albuquerque** – Dev Frontend
-- **Cezarnildo Moreira da Silva** – Dev Backend
-- **Jose Claudecir Silva de Lima** – Dev Backend
-- **Francisco Rodrigues de Oliveira Lima** – analista de testes e qualidade
-  
+## Como rodar (dev) — passo a passo para iniciantes
+**Pré-requisitos:** Node 18+ e uma conta/app no Back4App. Nunca versione a `PARSE_MASTER_KEY`.
+
+1) Clonar e instalar  
+- `git clone <repo>` e entre na pasta.  
+- Backend: `cd backend && npm install`  
+- Frontend: `cd ../frontend/web && npm install`
+
+2) Criar app no Back4App  
+- Acesse https://www.back4app.com e crie conta.  
+- Crie um novo app Parse; em “Security & Keys” anote: Application ID, JavaScript Key, REST API Key, Server URL (`https://parseapi.back4app.com`).  
+- Guarde a Master Key apenas localmente.
+
+3) Criar classes (schema)  
+Via Dashboard (clique em Create Class) ou via REST com Master Key:  
+- `_User`: campos extras nome, telefone, role (CLIENTE/PRESTADOR), cep, logradouro, numero, bairro, cidade, uf.  
+- `Servico`: titulo, descricao, categoria, preco (String), prestadorId, prestadorNome, cidade, uf, cep, logradouro, numero, bairro, complemento, latitude (Number), longitude (Number).  
+- `Solicitacao`: servicoId, clienteId, prestadorId, status, servicoTitulo, servicoCategoria, servicoPreco (String), servicoPrestadorNome, clienteNome, prestadorNome, detalhes, endereço (cep/logradouro/numero/bairro/cidade/uf/complemento), latitude/longitude, geocode_precision.
+
+4) Configurar `.env` do backend  
+- Em `backend`, copie `.env.example` para `.env`.  
+- Preencha `PARSE_APP_ID`, `PARSE_JS_KEY`, `PARSE_REST_KEY`, `PARSE_SERVER_URL` (do Back4App).  
+- Porta padrão: `PORT=3001`. Não commitar a Master Key.
+
+5) Subir o backend (API)  
+- `cd backend && npm run dev`  
+- Verifique “Backend listening on port 3001”.
+
+6) Subir o frontend (web)  
+- `cd frontend/web && npm run dev` (ou `npm start` se configurado)  
+- Acesse `http://localhost:3000` (chama a API em `http://localhost:3001` por padrão).
+
+7) Fluxo rápido para testar  
+- Crie conta em `auth.html` (cliente ou prestador).  
+- Prestador: cadastre um serviço em “Meus serviços”.  
+- Cliente: em “Serviços disponíveis”, clique “Solicitar contratação” e preencha detalhes/endereço.  
+- “Minhas solicitações”: cliente vê enviadas; prestador vê recebidas e pode aprovar/recusar/cancelar.
+
+8) Perfil  
+- Menu suspenso → “Meu perfil”.  
+- Clique “Editar”, altere dados, “Salvar alterações”.
+
+9) Dicas rápidas  
+- Se a API não responde, confira backend na porta 3001 e chaves no `.env`.  
+- Se o front não mostra dados, recarregue (Ctrl+Shift+R) e mantenha backend e frontend rodando.  
+- Nunca exponha a `PARSE_MASTER_KEY` em commits públicos.
+
+### (Opcional) Criar schema via REST (Postman/Insomnia)
+Use apenas para montar as classes no Back4App; requer Master Key (não publique).  
+- Base: `https://parseapi.back4app.com`  
+- Headers:  
+  `X-Parse-Application-Id: <APP_ID>`  
+  `X-Parse-REST-API-Key: <REST_KEY>`  
+  `X-Parse-Master-Key: <MASTER_KEY>`  
+  `Content-Type: application/json`
+
+POST `/schemas/Servico` (exemplo):
+```json
+{
+  "className": "Servico",
+  "fields": {
+    "titulo": { "type": "String" },
+    "descricao": { "type": "String" },
+    "categoria": { "type": "String" },
+    "preco": { "type": "String" },
+    "prestadorId": { "type": "String" },
+    "prestadorNome": { "type": "String" },
+    "cidade": { "type": "String" },
+    "uf": { "type": "String" },
+    "cep": { "type": "String" },
+    "logradouro": { "type": "String" },
+    "numero": { "type": "String" },
+    "bairro": { "type": "String" },
+    "complemento": { "type": "String" },
+    "latitude": { "type": "Number" },
+    "longitude": { "type": "Number" }
+  }
+}
+```
+
+POST `/schemas/Solicitacao` (exemplo):
+```json
+{
+  "className": "Solicitacao",
+  "fields": {
+    "servicoId": { "type": "String" },
+    "clienteId": { "type": "String" },
+    "prestadorId": { "type": "String" },
+    "status": { "type": "String" },
+    "servicoTitulo": { "type": "String" },
+    "servicoCategoria": { "type": "String" },
+    "servicoPreco": { "type": "String" },
+    "servicoPrestadorNome": { "type": "String" },
+    "clienteNome": { "type": "String" },
+    "prestadorNome": { "type": "String" },
+    "detalhes": { "type": "String" },
+    "cep": { "type": "String" },
+    "logradouro": { "type": "String" },
+    "numero": { "type": "String" },
+    "bairro": { "type": "String" },
+    "cidade": { "type": "String" },
+    "uf": { "type": "String" },
+    "complemento": { "type": "String" },
+    "latitude": { "type": "Number" },
+    "longitude": { "type": "Number" },
+    "geocode_precision": { "type": "String" }
+  }
+}
+```
+
+PUT `/schemas/_User` (exemplo):
+```json
+{
+  "fields": {
+    "nome": { "type": "String" },
+    "telefone": { "type": "String" },
+    "role": { "type": "String" },
+    "cep": { "type": "String" },
+    "logradouro": { "type": "String" },
+    "numero": { "type": "String" },
+    "bairro": { "type": "String" },
+    "cidade": { "type": "String" },
+    "uf": { "type": "String" }
+  }
+}
+```
+
+Depois de criar, ajuste permissões no Dashboard (Class Level Permissions) e use apenas APP/JS/REST keys no código; a Master Key fica fora do repositório.

@@ -10,10 +10,9 @@ Este documento descreve **todas as entidades, atributos, relacionamentos, regras
 ---
 
 ## 2. Visao Geral do Modelo
-O modelo contempla quatro entidades principais:
+O modelo contempla tres entidades principais:
 - **USUARIO**: pessoas que utilizam a plataforma (cliente ou prestador).
-- **CATEGORIA**: classificacao de servicos ofertados.
-- **SERVICO**: oferta publicada por um prestador.
+- **SERVICO**: oferta publicada por um prestador (com campo de categoria escolhida de lista predefinida).
 - **SOLICITACAO**: pedido realizado por um cliente para um servico especifico.
 
 Inclui campos de **endereco** e **coordenadas geograficas (latitude/longitude)** para: (a) preencher enderecos, (b) localizar pontos no mapa e (c) apoiar rotinas de logistica. Esses campos estao definidos de forma **completa** nas entidades **SERVICO** e **SOLICITACAO**.
@@ -22,7 +21,6 @@ Inclui campos de **endereco** e **coordenadas geograficas (latitude/longitude)**
 
 ## 3. Entidades e Atributos
 - **USUARIO**(id, nome, email, telefone, senha_hash, papel: CLIENTE|PRESTADOR, criado_em)
-- **CATEGORIA**(id, nome)
 - **SERVICO**(id, prestador_id, categoria_id, titulo, descricao, preco, cep, logradouro, numero, bairro, cidade, uf, complemento, latitude, longitude, geocode_precision, criado_em, atualizado_em)
 - **SOLICITACAO**(id, servico_id, cliente_id, status, cep, logradouro, numero, bairro, cidade, uf, complemento, latitude, longitude, geocode_precision, criado_em, atualizado_em)
 
@@ -34,7 +32,6 @@ erDiagram
   USUARIO ||--o{ SERVICO : offers
   USUARIO ||--o{ SOLICITACAO : requests
   SERVICO ||--o{ SOLICITACAO : relates_to
-  CATEGORIA ||--o{ SERVICO : categorizes
 
   USUARIO {
     int id
@@ -44,11 +41,6 @@ erDiagram
     string senha_hash
     string papel
     datetime criado_em
-  }
-
-  CATEGORIA {
-    int id
-    string nome
   }
 
   SERVICO {
@@ -98,7 +90,7 @@ erDiagram
 - **Integridade Referencial**
   - `SERVICO.prestador_id` referencia `USUARIO.id` (papel = PRESTADOR).
   - `SOLICITACAO.cliente_id` referencia `USUARIO.id` (papel = CLIENTE).
-  - `SERVICO.categoria_id` referencia `CATEGORIA.id`.
+  - `SERVICO.categoria` deve seguir lista predefinida (sem FK).
 
 - **Consistencia de Status**
   - `SOLICITACAO.status` ∈ {PENDENTE, NEGOCIACAO, CONFIRMADO, RECUSADO}.
@@ -131,18 +123,12 @@ erDiagram
 | papel      | string   | S           | CLIENTE ou PRESTADOR                  |
 | criado_em  | datetime | S           | Data/hora de criacao                  |
 
-### 6.2 CATEGORIA
-| Campo | Tipo   | Obrigatorio | Descricao            |
-|-------|--------|-------------|----------------------|
-| id    | int    | S           | Identificador unico  |
-| nome  | string | S           | Nome da categoria    |
-
 ### 6.3 SERVICO
 | Campo             | Tipo     | Obrigatorio | Descricao                                         |
 |-------------------|----------|-------------|---------------------------------------------------|
 | id                | int      | S           | Identificador unico                               |
 | prestador_id      | int FK   | S           | Referencia ao usuario prestador                   |
-| categoria_id      | int FK   | S           | Referencia a categoria                            |
+| categoria         | string   | S           | Categoria vinda de lista predefinida (ou \"Outros\") |
 | titulo            | string   | S           | Titulo do servico                                 |
 | descricao         | string   | S           | Descricao detalhada                               |
 | preco             | float    | N           | Preco ou valor a combinar                         |
@@ -184,7 +170,7 @@ erDiagram
 ## 7. Indices e Consideracoes de Desempenho
 - Indices recomendados:
   - `USUARIO(email)` unico.
-  - `SERVICO(prestador_id)`, `SERVICO(categoria_id)`, `SERVICO(cidade, uf)`.
+  - `SERVICO(prestador_id)`, `SERVICO(categoria)`, `SERVICO(cidade, uf)`.
   - `SOLICITACAO(servico_id)`, `SOLICITACAO(cliente_id)`, `SOLICITACAO(status)`.
 - Se consultas por local forem frequentes, considerar indice composto em `(cidade, uf)` ou armazenamento geoespacial quando suportado.
 

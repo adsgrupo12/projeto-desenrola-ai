@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desenrola Aí - Web</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="#">
+        <span class="brand-icon"></span>
+        <span>Desenrola Aí</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link fw-semibold" href="#como-funciona">Como funciona</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold" href="auth.html#login">Entrar</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold" href="auth.html#register">Cadastre-se</a></li>
+          <li class="nav-item">
+            <button class="btn btn-dark-green text-white px-3">Baixar nosso App</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-secondary btn-sm d-none" id="btn-logout">Sair</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container py-5">
+      <div class="row align-items-center gy-4">
+        <div class="col-12">
+          <span class="badge rounded-pill hero-badge mb-3">Serviços perto de você</span>
+          <h1 class="display-5 fw-bold mb-3">Encontre prestadores confiáveis em minutos. Sem enrolação, direto ao ponto.</h1>
+          <p class="lead text-secondary mb-3">Descubra quem já foi avaliado pela comunidade, compare e combine o atendimento sem sair do navegador.</p>
+          <div class="search-box d-flex flex-column flex-md-row gap-2 mb-3">
+            <input class="form-control" placeholder="o que você precisa?">
+            <input class="form-control" placeholder="Sua cidade ou bairro">
+          </div>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <a class="btn btn-dark-green btn-lg fw-semibold" href="services.html">Buscar agora</a>
+            <a class="btn btn-outline-success btn-lg fw-semibold" href="provider.html">Sou prestador</a>
+          </div>
+          <div class="d-flex flex-wrap gap-3 small text-secondary">
+            <span class="pill">✓ Avaliações reais da comunidade</span>
+            <span class="pill">✓ Localização inteligente</span>
+            <span class="pill">✓ Contato direto e seguro</span>
+          </div>
+          <div class="quote mt-3 fst-italic">“Achei uma diarista em 2 minutos. Foi super fácil!”<br><span class="fw-semibold">Amanda Oliveira, Fortaleza/CE</span></div>
+          <div class="small mt-3 text-muted" id="user-info"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="match-card container pb-5">
+      <div class="hero-visual shadow-sm">
+        <div class="hero-visual-content">
+          <p class="mb-1 text-uppercase small text-muted">Match inteligente</p>
+          <h5 class="fw-bold mb-2 text-dark">Peça, compare e feche rapidamente</h5>
+          <p class="text-secondary mb-3">Organizamos os prestadores por proximidade e feedback, para você decidir rápido e com confiança.</p>
+          <div class="stats mt-3">
+            <div>
+              <div class="stat-value text-dark">4.8★</div>
+              <div class="stat-label text-secondary">Satisfação média</div>
+            </div>
+            <div>
+              <div class="stat-value text-dark">+12k</div>
+              <div class="stat-label text-secondary">Pedidos concluídos</div>
+            </div>
+            <div>
+              <div class="stat-value text-dark">120</div>
+              <div class="stat-label text-secondary">Cidades atendidas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="how-it-works py-5">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-12 col-lg-6">
+            <p class="text-uppercase text-muted small fw-semibold mb-1">Como funciona</p>
+            <h2 class="fw-bold mb-3">Peça, compare e combine. Em minutos, não em dias.</h2>
+            <p class="lead text-secondary mb-4">Com poucos passos você encontra quem resolve sua necessidade: descreva, escolha e acompanhe com transparência.</p>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex gap-3">
+                <div class="step-badge">1</div>
+                <div>
+                  <h6 class="mb-1">Diga o que você precisa</h6>
+                  <p class="mb-0 text-secondary">Informe o serviço e local. Priorizamos quem está perto.</p>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <div class="step-badge">2</div>
+                <div>
+                  <h6 class="mb-1">Veja avaliações e escolha</h6>
+                  <p class="mb-0 text-secondary">Compare prestadores validados pela comunidade.</p>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <div class="step-badge">3</div>
+                <div>
+                  <h6 class="mb-1">Combine e acompanhe</h6>
+                  <p class="mb-0 text-secondary">Confirme horários, acompanhe status e mantenha tudo registrado.</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 d-flex flex-wrap gap-2">
+              <a class="btn btn-dark-green" href="services.html">Explorar serviços</a>
+              <a class="btn btn-outline-success" href="auth.html#login">Entrar</a>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <div class="info-card shadow-sm h-100 p-3">
+                  <h6 class="fw-semibold mb-2">Serviços verificados</h6>
+                  <p class="text-secondary mb-0">Perfis cadastrados com contato direto e histórico de atendimento.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="info-card shadow-sm h-100 p-3">
+                  <h6 class="fw-semibold mb-2">Localização inteligente</h6>
+                  <p class="text-secondary mb-0">Priorizamos quem está perto para orçar e executar rápido.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="info-card shadow-sm h-100 p-3">
+                  <h6 class="fw-semibold mb-2">Feedback real</h6>
+                  <p class="text-secondary mb-0">Avaliações da comunidade ajudam na decisão em poucos cliques.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="info-card shadow-sm h-100 p-3">
+                  <h6 class="fw-semibold mb-2">Controle e registro</h6>
+                  <p class="text-secondary mb-0">Solicite, aceite, confirme. Tudo organizado para evitar imprevistos.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="call-to-action" class="container py-5 text-center">
+      <h3 class="fw-bold mb-3">Pronto para testar?</h3>
+      <p class="text-secondary mb-4">Entre ou cadastre-se em poucos segundos. Se você presta serviços, comece a receber pedidos hoje.</p>
+      <a class="btn btn-dark-green btn-lg me-2" href="auth.html#login">Entrar</a>
+      <a class="btn btn-outline-success btn-lg" href="auth.html#register">Cadastre-se</a>
+    </section>
+  </main>
+
+  <footer class="py-4 bg-light">
+    <div class="container d-flex flex-column flex-md-row justify-content-center gap-4 text-muted small">
+      <a href="#" class="text-muted text-decoration-none">Termos de serviço</a>
+      <a href="#" class="text-muted text-decoration-none">Política de privacidade</a>
+      <a href="#" class="text-muted text-decoration-none">Fale conosco</a>
+    </div>
+  </footer>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast align-items-center text-bg-dark border-0" role="alert">
+      <div class="d-flex">
+        <div class="toast-body" id="toast-body"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
