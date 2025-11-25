@@ -1,4 +1,7 @@
-const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'http://localhost:3001';
+const API_BASE =
+  window.API_BASE ||
+  window.localStorage.getItem('apiBase') ||
+  (location.hostname.includes('vercel.app') ? 'https://desenrola-ai-teste.onrender.com' : 'http://localhost:3001');
 
 const toastEl = document.getElementById('toast');
 const toastBody = document.getElementById('toast-body');

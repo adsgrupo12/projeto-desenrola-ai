@@ -29,7 +29,9 @@ async function api(path, options = {}) {
     const text = await resp.text();
     throw new Error(`Erro ${resp.status}: ${text}`);
   }
-  return resp.json();
+  if (resp.status === 204) return null;
+  const text = await resp.text();
+  return text ? JSON.parse(text) : null;
 }
 
 function ensureAvatar(name) {
