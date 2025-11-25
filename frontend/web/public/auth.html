@@ -56,10 +56,12 @@
               <input class="form-control" name="email" type="email" placeholder="E-mail" required>
               <input class="form-control" name="telefone" type="tel" placeholder="Telefone com DDD" required>
               <input class="form-control" name="senha" type="password" placeholder="Criar senha" required>
+              <input class="form-control" name="confirmarSenha" type="password" placeholder="Confirmar senha" required>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="isPrestador" name="isPrestador">
                 <label class="form-check-label" for="isPrestador">Quero me cadastrar como prestador de serviço também</label>
               </div>
+              <div id="register-error" class="text-danger small fw-semibold d-none">Preencha todos os campos obrigatórios.</div>
               <button class="btn btn-dark-green w-100" type="submit">Cadastrar-se</button>
             </form>
           </div>

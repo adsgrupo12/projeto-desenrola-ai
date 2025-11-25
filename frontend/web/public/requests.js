@@ -1,9 +1,13 @@
-const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'https://desenrola-ai-teste.onrender.com';
+const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'http://localhost:3001';
 
 let currentUser = null;
 let requestsCache = [];
 let detailsModal;
 let editModal;
+let mapInstance;
+let mapMarker;
+let currentMapRequestId = null;
+let currentMarkerCoords = null;
 
 function showToast(message) {
   const toastEl = document.getElementById('toast');
@@ -83,6 +87,53 @@ async function loadMe() {
 function locationText(r) {
   const parts = [r.cidade, r.uf].filter(Boolean);
   return parts.length ? parts.join('/') : 'Não informado';
+}
+
+function buildAddressString(r) {
+  const parts = [r.logradouro, r.numero, r.bairro, r.cidade, r.uf, r.cep].filter(Boolean);
+  return parts.join(', ');
+}
+
+function updateCoordText(lat, lon) {
+  const el = document.getElementById('coord-text');
+  if (el) {
+    el.textContent = lat && lon ? `Lat: ${lat.toFixed(5)} | Lon: ${lon.toFixed(5)}` : 'Localização não disponível.';
+  }
+}
+
+async function ensureMap(lat, lon) {
+  const mapEl = document.getElementById('request-map');
+  if (!mapEl || lat === undefined || lon === undefined) return;
+  const target = [lat, lon];
+  if (!mapInstance) {
+    mapInstance = L.map(mapEl).setView(target, 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(mapInstance);
+  } else {
+    mapInstance.setView(target, 15);
+  }
+
+  if (mapMarker) {
+    mapMarker.setLatLng(target);
+  } else {
+    mapMarker = L.marker(target, { draggable: true }).addTo(mapInstance);
+    mapMarker.on('dragend', () => {
+      const pos = mapMarker.getLatLng();
+      currentMarkerCoords = { lat: pos.lat, lon: pos.lng };
+      updateCoordText(pos.lat, pos.lng);
+    });
+  }
+  currentMarkerCoords = { lat, lon };
+  updateCoordText(lat, lon);
+}
+
+async function geocodeAddress(r) {
+  const address = buildAddressString(r);
+  if (!address) throw new Error('Endereço não informado');
+  const data = await api(`/external/geocode?endereco=${encodeURIComponent(address)}`);
+  return { lat: data.latitude, lon: data.longitude, precision: data.geocode_precision };
 }
 
 function buildCard(r, isReceived) {
@@ -239,10 +290,30 @@ function openDetails(id) {
     </div>
   `;
 
+  currentMapRequestId = id;
+  currentMarkerCoords = null;
+
+  const loadMap = async () => {
+    try {
+      let lat = r.latitude;
+      let lon = r.longitude;
+      if (lat === null || lat === undefined || lon === null || lon === undefined) {
+        const geo = await geocodeAddress(r);
+        lat = geo.lat;
+        lon = geo.lon;
+      }
+      await ensureMap(lat, lon);
+    } catch (err) {
+      updateCoordText(null, null);
+      showToast(err.message);
+    }
+  };
+
   if (!detailsModal) {
     detailsModal = new bootstrap.Modal(document.getElementById('requestDetailsModal'));
   }
   detailsModal.show();
+  setTimeout(loadMap, 200);
 }
 
 function populateEditForm(r) {
@@ -291,6 +362,29 @@ async function submitEditForm(event) {
   }
 }
 
+async function saveLocation() {
+  if (!currentMapRequestId || !currentMarkerCoords) {
+    showToast('Nenhuma localização para salvar.');
+    return;
+  }
+  try {
+    await api(`/requests/${currentMapRequestId}`, {
+      method: 'PATCH',
+      body: {
+        endereco: {
+          latitude: currentMarkerCoords.lat,
+          longitude: currentMarkerCoords.lon,
+          geocode_precision: 'manual'
+        }
+      }
+    });
+    showToast('Localização atualizada');
+    loadRequests();
+  } catch (err) {
+    showToast(err.message);
+  }
+}
+
 function bindLogout() {
   const btn = document.getElementById('btn-logout');
   if (!btn) return;
@@ -306,6 +400,8 @@ function bindLogout() {
   bindLogout();
   const editForm = document.getElementById('edit-request-form');
   if (editForm) editForm.addEventListener('submit', submitEditForm);
+  const btnSaveLocation = document.getElementById('btn-save-location');
+  if (btnSaveLocation) btnSaveLocation.addEventListener('click', saveLocation);
   await loadMe();
   await loadRequests();
 })();

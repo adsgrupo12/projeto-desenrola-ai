@@ -57,3 +57,9 @@
 - Classes Parse: `User` (campo `role`), `Servico`, `Solicitacao`.
 - Chaves e URLs ficam em `.env` (não versionar).  
 - Para produção, ajustar CORS e considerar trocar geocoding para Mapbox se houver limite no Nominatim.
+
+## Ambiente de API (atual)
+- Base local: http://localhost:3001
+- Base implantada: https://desenrola-ai-teste.onrender.com
+- Status de solicita??o aceitos: PENDENTE, NEGOCIACAO, CONFIRMADO, RECUSADO, CANCELADO.
+- Edi??o/cancelamento: PATCH /requests/:id (detalhes/endereco) e PATCH /requests/:id/status para mudar status.

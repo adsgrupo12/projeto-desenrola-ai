@@ -29,7 +29,9 @@
   </header>
 
   <main class="container py-5">
-    <h1 class="h4 fw-bold mb-4 text-center">Cadastre-se como prestador de serviço</h1>
+    <h1 class="h4 fw-bold mb-2 text-center">Cadastre-se como prestador de serviço</h1>
+    <p class="text-center text-muted mb-3 small">Preencha todos os campos abaixo para criarmos seu perfil de prestador.</p>
+    <div id="form-error" class="text-danger text-center fw-semibold d-none mb-2">Preencha todos os campos obrigatórios.</div>
     <form id="form-provider" class="row g-3">
       <div class="col-12 col-lg-6">
         <h6 class="fw-semibold mb-2">Informações de Perfil</h6>
@@ -44,33 +46,33 @@
       <div class="col-12 col-lg-6">
         <h6 class="fw-semibold mb-2">Informações de Endereço</h6>
         <div class="row g-2">
-          <div class="col-12">
+          <div class="col-6 col-md-4">
+            <input class="form-control" name="cep" placeholder="CEP" required>
+          </div>
+          <div class="col-6 col-md-8">
             <input class="form-control" name="logradouro" placeholder="Logradouro (rua, avenida...)" required>
           </div>
           <div class="col-6 col-md-4">
-            <input class="form-control" name="numero" placeholder="Número">
+            <input class="form-control" name="numero" placeholder="Número" required>
           </div>
           <div class="col-6 col-md-4">
-            <input class="form-control" name="bairro" placeholder="Bairro">
+            <input class="form-control" name="bairro" placeholder="Bairro" required>
           </div>
           <div class="col-6 col-md-4">
-            <input class="form-control" name="cidade" placeholder="Cidade">
+            <input class="form-control" name="cidade" placeholder="Cidade" required>
           </div>
           <div class="col-6 col-md-4">
-            <input class="form-control" name="uf" placeholder="UF" maxlength="2">
-          </div>
-          <div class="col-6 col-md-4">
-            <input class="form-control" name="cep" placeholder="CEP">
+            <input class="form-control" name="uf" placeholder="UF" maxlength="2" required>
           </div>
         </div>
       </div>
       <div class="col-12">
         <h6 class="fw-semibold mb-2">Serviços oferecidos</h6>
-        <input class="form-control" name="categorias" placeholder="Ex.: elétrica, hidráulica, pintura">
+        <input class="form-control" name="categorias" placeholder="Ex.: elétrica, hidráulica, pintura" required>
       </div>
       <div class="col-12">
         <h6 class="fw-semibold mb-2">Descrição do serviço</h6>
-        <textarea class="form-control" name="descricao" rows="4" placeholder="Conte um pouco sobre sua experiência ou serviços que realiza."></textarea>
+        <textarea class="form-control" name="descricao" rows="4" placeholder="Conte um pouco sobre sua experiência ou serviços que realiza." required></textarea>
       </div>
       <div class="col-12">
         <button class="btn btn-dark-green btn-lg w-100" type="submit">Cadastre-se como prestador</button>

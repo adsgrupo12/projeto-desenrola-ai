@@ -1,4 +1,4 @@
-const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'https://desenrola-ai-teste.onrender.com';
+const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'http://localhost:3001';
 
 const toastEl = document.getElementById('toast');
 const toastBody = document.getElementById('toast-body');
@@ -17,6 +17,20 @@ function showToast(message) {
   toast.show();
 }
 
+function clearRegisterErrors(form) {
+  form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
+  const msg = document.getElementById('register-error');
+  if (msg) msg.classList.add('d-none');
+}
+
+function showRegisterError(message) {
+  const msg = document.getElementById('register-error');
+  if (msg) {
+    msg.textContent = message || 'Preencha todos os campos obrigatórios.';
+    msg.classList.remove('d-none');
+  }
+}
+
 function setSession(token, role) {
   state.sessionToken = token;
   state.role = role;
@@ -32,6 +46,18 @@ function setSession(token, role) {
   const cardCreate = document.getElementById('card-create-service');
   if (logoutBtn) logoutBtn.classList.toggle('d-none', !token);
   if (cardCreate) cardCreate.style.display = role === 'PRESTADOR' ? 'block' : 'none';
+}
+
+function friendlyError(message) {
+  const msg = message || '';
+  const lower = msg.toLowerCase();
+  if (lower.includes('account already exists') || lower.includes('username')) {
+    return 'E-mail já cadastrado. Faça o login.';
+  }
+  if (lower.includes('email') && lower.includes('exists')) {
+    return 'E-mail já cadastrado. Faça o login.';
+  }
+  return message;
 }
 
 async function api(path, options = {}) {
@@ -57,7 +83,7 @@ function renderServiceCards(list) {
   const container = document.getElementById('services-list');
   if (!container) return;
   if (!list.length) {
-    container.innerHTML = '<div class="col-12 text-muted">Nenhum serviço encontrado.</div>';
+    container.innerHTML = '<div class="col-12 text-muted">Nenhum serviÃ§o encontrado.</div>';
     return;
   }
 
@@ -68,14 +94,14 @@ function renderServiceCards(list) {
         <div class="card h-100 shadow-sm service-card">
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
-              <span class="badge bg-light text-dark border">${svc.categoria || 'Serviço'}</span>
+              <span class="badge bg-light text-dark border">${svc.categoria || 'ServiÃ§o'}</span>
               <span class="text-success fw-semibold">${svc.preco ? `R$ ${svc.preco}` : 'A combinar'}</span>
             </div>
             <h5 class="card-title">${svc.titulo}</h5>
             <p class="card-text text-secondary flex-grow-1">${svc.descricao || ''}</p>
             <div class="small text-muted mb-1">Prestador: ${svc.prestadorNome || 'Prestador'}</div>
             <div class="small text-muted mb-3">Local: ${svc.cidade || ''}${svc.uf ? '/' + svc.uf : ''}</div>
-            <button class="btn btn-outline-success mt-auto" data-id="${svc.id}">Solicitar contratação</button>
+            <button class="btn btn-outline-success mt-auto" data-id="${svc.id}">Solicitar contra&ccedil;&atilde;o</button>
           </div>
         </div>
       </div>`
@@ -116,8 +142,39 @@ async function handleRegister(event) {
   event.stopPropagation();
   const form = event.target;
   const isPrestador = form.isPrestador?.checked;
+  clearRegisterErrors(form);
+
+  // validações básicas
+  const required = ['nome', 'email', 'telefone', 'senha', 'confirmarSenha'];
+  for (const field of required) {
+    if (!form[field] || !form[field].value.trim()) {
+      form[field]?.classList.add('is-invalid');
+      showRegisterError('Preencha todos os campos obrigatórios.');
+      return false;
+    }
+  }
+  const phone = form.telefone.value.trim();
+  const phoneDigits = phone.replace(/\D/g, '');
+  if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+    form.telefone.classList.add('is-invalid');
+    showRegisterError('Telefone inválido. Use DDD + número (10 ou 11 dígitos).');
+    return false;
+  }
+  if (form.senha.value !== form.confirmarSenha.value) {
+    form.senha.classList.add('is-invalid');
+    form.confirmarSenha.classList.add('is-invalid');
+    showRegisterError('As senhas não coincidem.');
+    return false;
+  }
 
   if (isPrestador) {
+    // guarda prefill temporário para a próxima página
+    const prefill = {
+      nome: form.nome.value,
+      email: form.email.value,
+      telefone: form.telefone.value
+    };
+    localStorage.setItem('providerPrefill', JSON.stringify(prefill));
     const params = new URLSearchParams({
       nome: form.nome.value,
       email: form.email.value,
@@ -128,7 +185,7 @@ async function handleRegister(event) {
   }
 
   try {
-    await api('/auth/register', {
+    const data = await api('/auth/register', {
       method: 'POST',
       body: {
         nome: form.nome.value,
@@ -138,9 +195,14 @@ async function handleRegister(event) {
         role: 'CLIENTE'
       }
     });
-    showToast('Conta criada. Faça login.');
+    setSession(data.sessionToken, data.role || 'CLIENTE');
+    if (form.nome.value) {
+      localStorage.setItem('userName', form.nome.value);
+    }
+    showToast('Conta criada. Redirecionando...');
+    window.location.href = 'services.html';
   } catch (err) {
-    showToast(err.message);
+    showToast(friendlyError(err.message));
   }
   return false;
 }
@@ -161,7 +223,7 @@ async function handleCreateService(event) {
       }
     });
     form.reset();
-    showToast('Serviço criado');
+    showToast('ServiÃ§o criado');
     await loadServices();
   } catch (err) {
     showToast(err.message);
@@ -178,7 +240,7 @@ function openConfirmationModal() {
       window.location.href = 'requests.html';
     }, 5000);
   } else {
-    showToast('Solicitação enviada. Acompanhe em Minhas solicitações.');
+    showToast('SolicitaÃ§Ã£o enviada. Acompanhe em Minhas solicitaÃ§Ãµes.');
     setTimeout(() => (window.location.href = 'requests.html'), 5000);
   }
 }
@@ -198,7 +260,22 @@ async function submitRequestForm(event) {
   event.preventDefault();
   const serviceId = state.selectedServiceId || document.getElementById('request-service-id')?.value;
   if (!serviceId) {
-    showToast('Serviço não encontrado. Tente novamente.');
+    showToast('ServiÃ§o nÃ£o encontrado. Tente novamente.');
+    return;
+  }
+
+  // valida campos obrigatórios do endereço (exceto complemento)
+  const reqFields = ['req-cep', 'req-logradouro', 'req-numero', 'req-bairro', 'req-cidade', 'req-uf'];
+  let hasError = false;
+  reqFields.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el || !el.value.trim()) {
+      hasError = true;
+      el?.classList.add('is-invalid');
+    }
+  });
+  if (hasError) {
+    showToast('Preencha CEP, logradouro, núímero, bairro, cidade e UF.');
     return;
   }
 
@@ -289,7 +366,7 @@ function showWelcomeBar() {
   if (!bar) return;
   const name = localStorage.getItem('userName') || '';
   const firstName = name.split(' ')[0] || 'Bem-vindo';
-  bar.textContent = `Olá, ${firstName}! Que serviço você quer encontrar hoje?`;
+  bar.textContent = `Ol\u00e1, ${firstName}! Que servi\u00e7o voc\u00ea quer encontrar hoje?`;
   const navAvatar = document.getElementById('nav-avatar');
   if (navAvatar) {
     navAvatar.textContent = firstName ? firstName[0].toUpperCase() : '?';
@@ -336,6 +413,33 @@ function bindIfExists(selector, event, handler) {
 
 bindIfExists('#form-login', 'submit', handleLogin);
 bindIfExists('#form-register', 'submit', handleRegister);
+document.querySelectorAll('#form-register input').forEach((el) => {
+  el.addEventListener('input', () => el.classList.remove('is-invalid'));
+});
+// CEP autofill no modal de contratação
+const cepInputReq = document.getElementById('req-cep');
+if (cepInputReq) {
+  cepInputReq.addEventListener('blur', async () => {
+    const raw = cepInputReq.value || '';
+    const cep = raw.replace(/\D/g, '');
+    if (cep.length !== 8) return;
+    try {
+      const data = await api(`/external/viacep/${cep}`);
+      const map = {
+        logradouro: 'logradouro',
+        bairro: 'bairro',
+        cidade: 'localidade',
+        uf: 'uf'
+      };
+      Object.entries(map).forEach(([field, src]) => {
+        const el = document.getElementById(`req-${field}`);
+        if (el && data[src] && !el.value) el.value = data[src];
+      });
+    } catch (err) {
+      showToast(err.message);
+    }
+  });
+}
 bindIfExists('#form-service', 'submit', handleCreateService);
 bindIfExists('#request-form', 'submit', submitRequestForm);
 bindIfExists('#btn-filter', 'click', loadServices);
@@ -350,3 +454,8 @@ restoreSession();
 toggleProviderBanner();
 ensureUserContext();
 loadServices();
+
+['req-cep', 'req-logradouro', 'req-numero', 'req-bairro', 'req-cidade', 'req-uf'].forEach((id) => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => el.classList.remove('is-invalid'));
+});

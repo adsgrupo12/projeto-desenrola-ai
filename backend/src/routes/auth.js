@@ -42,8 +42,8 @@ router.post(
     user.set('telefone', telefone);
     user.set('role', role);
 
-    // Campos adicionais para prestador (apenas se masterKey estiver configurada)
-    if (role === 'PRESTADOR' && Parse.masterKey) {
+    // Campos adicionais para prestador (salvos sem masterKey, pois o pr��prio usu��rio cria o objeto)
+    if (role === 'PRESTADOR') {
       if (logradouro) user.set('logradouro', logradouro);
       if (numero) user.set('numero', numero);
       if (bairro) user.set('bairro', bairro);

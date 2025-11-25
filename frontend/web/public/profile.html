@@ -49,8 +49,8 @@
     <form id="profile-form">
       <div class="row g-4 align-items-start">
         <div class="col-12 col-lg-8">
-          <div class="row g-3">
-            <div class="col-12 col-lg-6">
+          <div class="vstack gap-4">
+            <div>
               <h6 class="fw-semibold mb-2">Informações de Perfil</h6>
               <div class="vstack gap-2">
                 <input class="form-control" name="nome" id="nome" placeholder="Nome completo" disabled required>
@@ -58,10 +58,13 @@
                 <input class="form-control" name="telefone" id="telefone" placeholder="Telefone" disabled required>
               </div>
             </div>
-            <div class="col-12 col-lg-6">
+            <div>
               <h6 class="fw-semibold mb-2">Informações de Endereço</h6>
               <div class="row g-2">
-                <div class="col-12">
+                <div class="col-6 col-md-4">
+                  <input class="form-control" name="cep" id="cep" placeholder="CEP" disabled>
+                </div>
+                <div class="col-6 col-md-8">
                   <input class="form-control" name="logradouro" id="logradouro" placeholder="Logradouro" disabled>
                 </div>
                 <div class="col-6 col-md-4">
@@ -75,9 +78,6 @@
                 </div>
                 <div class="col-6 col-md-4">
                   <input class="form-control" name="uf" id="uf" placeholder="UF" maxlength="2" disabled>
-                </div>
-                <div class="col-6 col-md-4">
-                  <input class="form-control" name="cep" id="cep" placeholder="CEP" disabled>
                 </div>
               </div>
             </div>

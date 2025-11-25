@@ -1,0 +1,53 @@
+Plano de Testes - Desenrola Ai
+
+1. Orientacoes gerais
+- Objetivo: validar cada requisito funcional descrito em docs/requirements/requirements.md.
+- Perfil: equipe com pouca experiencia; seguir os passos indicados e registrar tudo.
+- Registro: preencher este documento salvando com seu nome (ex.: Testes-Nome.rtf) e anexar evidencias (prints de tela) quando houver erro.
+
+2. Ambiente para testes
+- Frontend (producao de testes): https://desenrola-front-testes-feyzrma06-riomars-projects.vercel.app
+- Backend (API): https://desenrola-ai-teste.onrender.com
+- Acesso rapido: abrir a URL do frontend e usar os fluxos abaixo.
+
+3. Referencia de requisitos
+- Ler: docs/requirements/requirements.md (no repositorio GitHub)
+- Para cada requisito (RF/NF), preencher a secao 6.
+
+4. Fluxos minimos a executar
+1) Cadastro de cliente
+2) Login de cliente
+3) Cadastro de prestador
+4) Cadastro de servico (prestador)
+5) Solicitar contratacao (cliente)
+6) Minhas solicitacoes (cliente e prestador), aprovar/recusar/cancelar
+7) Editar perfil
+
+5. Evidencias
+- Em caso de erro, descrever o passo e anexar screenshot.
+- Nome do arquivo de evidencias: RFxx-erro.png (ou similar).
+
+6. Registro por requisito (copiar/colar para cada RF/NF)
+Requisito: (ex.: RF01 – Cadastro de usuario)
+Atendido?: (Sim/Nao)
+Passos executados:
+1.
+2.
+3.
+Resultado esperado:
+Resultado obtido:
+Evidencia (arquivo/descricao):
+Observacoes:
+
+Requisito:
+Atendido?: (Sim/Nao)
+Passos executados:
+1.
+2.
+3.
+Resultado esperado:
+Resultado obtido:
+Evidencia (arquivo/descricao):
+Observacoes:
+
+(Repita a estrutura acima para todos os requisitos testados.)

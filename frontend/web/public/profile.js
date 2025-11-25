@@ -1,4 +1,4 @@
-const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'https://desenrola-ai-teste.onrender.com';
+const API_BASE = window.API_BASE || window.localStorage.getItem('apiBase') || 'http://localhost:3001';
 
 const toastEl = document.getElementById('toast');
 const toastBody = document.getElementById('toast-body');
@@ -35,6 +35,13 @@ async function api(path, options = {}) {
     throw new Error(`Erro ${resp.status}: ${text}`);
   }
   return resp.json();
+}
+
+async function fetchCep(cep) {
+  const sanitized = (cep || '').replace(/\D/g, '');
+  if (sanitized.length !== 8) throw new Error('CEP inválido');
+  const data = await api(`/external/viacep/${sanitized}`);
+  return data;
 }
 
 function fillProfile(data) {
@@ -125,6 +132,29 @@ async function submitProfile(event) {
 function bindForm() {
   const form = document.getElementById('profile-form');
   if (form) form.addEventListener('submit', submitProfile);
+  const cepInput = document.getElementById('cep');
+  if (cepInput) {
+    cepInput.addEventListener('blur', async () => {
+      if (cepInput.disabled) return;
+      const cep = cepInput.value || '';
+      if ((cep || '').replace(/\D/g, '').length !== 8) return;
+      try {
+        const data = await fetchCep(cep);
+        const map = {
+          logradouro: 'logradouro',
+          bairro: 'bairro',
+          cidade: 'localidade',
+          uf: 'uf'
+        };
+        Object.entries(map).forEach(([field, source]) => {
+          const el = document.getElementById(field);
+          if (el && data[source] && !el.value) el.value = data[source];
+        });
+      } catch (err) {
+        showToast(err.message);
+      }
+    });
+  }
 }
 
 (function init() {

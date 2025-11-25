@@ -175,3 +175,9 @@ PUT `/schemas/_User` (exemplo):
 ```
 
 Depois de criar, ajuste permissões no Dashboard (Class Level Permissions) e use apenas APP/JS/REST keys no código; a Master Key fica fora do repositório.
+
+## Ambiente implantado (atual)
+- Backend: hospedado no Render (https://desenrola-ai-teste.onrender.com), Node + Express + Parse SDK conectado ao Back4App.
+- Frontend: API_BASE padrao aponta para a URL acima; pode ser sobrescrito em window.API_BASE ou localStorage.apiBase.
+- CORS e chaves: manter apenas APP/JS/REST no Render; nao publicar a Master Key. Ajustar CORS_ALLOWED_ORIGINS se precisar restringir dominios.
+- Deploy do frontend: pode ser feito no Vercel (pasta frontend/web/public) apontando para a URL do backend.

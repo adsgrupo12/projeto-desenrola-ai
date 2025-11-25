@@ -180,3 +180,7 @@ erDiagram
 - O modelo e agnostico de SGBD. Em ambientes NoSQL (ex.: Parse/Back4App), os campos sao mapeados para classes/objetos correspondentes.
 - Campos de auditoria devem ser preenchidos automaticamente pela camada de persistencia.
 - Validacoes de formato (CEP, UF, ranges de latitude/longitude) devem ocorrer no backend antes de persistir.
+
+## Atualizacao de estados e campos din?micos
+- Status de SOLICITACAO usados na API atual: PENDENTE, NEGOCIACAO, CONFIRMADO, RECUSADO, CANCELADO.
+- Campos textuais como prestadorNome/clienteNome s?o gravados tamb?m nas solicita??es para exibi??o em cards, al?m das refs de id.

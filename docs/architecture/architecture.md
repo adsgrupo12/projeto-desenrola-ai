@@ -179,3 +179,8 @@ sequenceDiagram
 ## 10. Rastreabilidade
 - Requisitos funcionais **RF11–RF14** (CEP, geocoding, mapa, revalidacao) mapeados nos fluxos 5.1–5.3.
 - Campos de endereco e coordenadas definidos em **SERVICO** e **SOLICITACAO**.
+
+## Implantacao (atualizacao)
+- Backend Node/Express hospedado no Render, consumindo Back4App como BaaS/Parse.
+- Frontend web consome a API via https://desenrola-ai-teste.onrender.com.
+- Banco de dados: classes Parse (_User, Servico, Solicitacao) mantidas no Back4App.
