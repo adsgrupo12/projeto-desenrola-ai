@@ -11,8 +11,7 @@
 * **.Link do arquivo:** https://desenrola-front-testes-feyzrma06-riomars-projects.vercel.app/services.html
 * **Data/Hora:** 25/11/2025 às 8h 30min
 * **Observações:** O participante acessou toda área de serviços do "Desenrola aí", cadastrou um serviço e recebeu feedback de confirmado perfeitamente.
-* **Evidência Visual:** ![Evidência: F-01]([https://imgur.com/uJ1atcX])
-
+* **Evidência Visual:** ![Evidência: F-01](https://i.imgur.com/uJ1atcX.png)
 ---
 
 ### ID Evidência: F-02
