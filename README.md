@@ -58,20 +58,18 @@ flowchart TD
 ## Como rodar (dev)
 **Pré-requisitos:** Node 18+ e uma conta/app no Back4App. Nunca versione a `PARSE_MASTER_KEY`.
 
-👉 Para rodar o backend localmente, faz-se necessário criar uma conta no Back4app e criar o app. É gratuito. A partir daí você pode criar o banco de dados conforme descrito na seção "(Opcional) Criar schema via REST". Se quiser apenas testar o frontend localmente sem subir backend local, abra o navegador e rode no console:  
-`localStorage.apiBase='https://desenrola-ai-teste.onrender.com'; location.reload();`  
-Assim o front usa o backend em produção no Render. Para desenvolvimento completo (backend local), siga os passos abaixo.
+👉 Para rodar o backend localmente, faz-se necessário criar uma conta no Back4app e criar o app. É gratuito. A partir daí você pode criar o banco de dados conforme descrito na seção "(Opcional) Criar schema via REST". 
 
 1) Clonar e instalar  
 - `git clone <repo>` e entre na pasta.  
 - Backend: `cd backend && npm install`  
 - Frontend: `cd ../frontend/web && npm install`
 
-2) Subir o backend (API)  
+1) Subir o backend (API)  
 - `cd backend && npm run dev`  ****
 - Verifique “Backend listening on port 3001”.
 
-3) Subir o frontend (web)  
+1) Subir o frontend (web)  
 - `cd frontend/web && npm run dev` (ou `npm start` se configurado)  
 - Acesse `http://localhost:3000` (chama a API em `http://localhost:3001` por padrão).
 
