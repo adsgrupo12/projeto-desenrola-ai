@@ -46,38 +46,62 @@ flowchart TD
 - `docs/`: requisitos, arquitetura, modelo de dados e documentação de API
 - `prototypes/`: protótipos Figma (web e mobile)
 - `validation/`: público-alvo, relatório e evidências de validação
+  
+## Ambiente implantado (atual)
+- Backend: hospedado no Render (https://desenrola-ai-teste.onrender.com), Node + Express + Parse SDK conectado ao Back4App.
+- Frontend: disponibilizado no Vercel (https://desenrola-front-testes.vercel.app).  
 
-## Como rodar (dev) — passo a passo para iniciantes
+## Credenciais de teste
+- Cliente: `joaquim@gmail.com / 1234`
+- Prestador: `claudecir@gmail.com / 1234`
+
+## Como rodar (dev)
 **Pré-requisitos:** Node 18+ e uma conta/app no Back4App. Nunca versione a `PARSE_MASTER_KEY`.
+
+👉 Para rodar o backend localmente, faz-se necessário criar uma conta no Back4app e criar o app. É gratuito. A partir daí você pode criar o banco de dados conforme descrito na seção "(Opcional) Criar schema via REST". Se quiser apenas testar o frontend localmente sem subir backend local, abra o navegador e rode no console:  
+`localStorage.apiBase='https://desenrola-ai-teste.onrender.com'; location.reload();`  
+Assim o front usa o backend em produção no Render. Para desenvolvimento completo (backend local), siga os passos abaixo.
 
 1) Clonar e instalar  
 - `git clone <repo>` e entre na pasta.  
 - Backend: `cd backend && npm install`  
 - Frontend: `cd ../frontend/web && npm install`
 
-
 2) Subir o backend (API)  
-- `cd backend && npm run dev`  
+- `cd backend && npm run dev`  ****
 - Verifique “Backend listening on port 3001”.
 
 3) Subir o frontend (web)  
 - `cd frontend/web && npm run dev` (ou `npm start` se configurado)  
 - Acesse `http://localhost:3000` (chama a API em `http://localhost:3001` por padrão).
 
-4) Fluxo rápido para testar  
+
+👉 Caso deseje rodar apenas o frontend localmente, utilizando o backend em produção, faça o seguinte:
+
+1) Clonar  instalar
+
+- `git clone <repo>` e entre na pasta. 
+- Frontend: `cd ../frontend/web && npm install`
+
+2) Abra o navegador e acesse `localhost:3000`. No console (Clicar F12, no Windows), digitar `localStorage.apiBase='https://desenrola-ai-teste.onrender.com'; location.reload();` 
+Assim o front usa o backend em produção no Render. Para desenvolvimento completo (backend local), siga os passos abaixo.
+
+### Fluxo rápido para testar  
 - Crie conta em `auth.html` (cliente ou prestador).  
 - Prestador: cadastre um serviço em “Meus serviços”.  
 - Cliente: em “Serviços disponíveis”, clique “Solicitar contratação” e preencha detalhes/endereço.  
 - “Minhas solicitações”: cliente vê enviadas; prestador vê recebidas e pode aprovar/recusar/cancelar.
 
-4.1) Perfil  
+1) Perfil  
 - Menu suspenso → “Meu perfil”.  
 - Clique “Editar”, altere dados, “Salvar alterações”.
 
-4.2) Dicas rápidas  
+2) Dicas rápidas  
 - Se a API não responde, confira backend na porta 3001 e chaves no `.env`.  
 - Se o front não mostra dados, recarregue (Ctrl+Shift+R) e mantenha backend e frontend rodando.  
 - Nunca exponha a `PARSE_MASTER_KEY` em commits públicos.
+
+
 
 ### (Opcional) Criar schema via REST (Postman/Insomnia)
 Use apenas para montar as classes no Back4App; requer Master Key (não publique).  
@@ -159,13 +183,4 @@ PUT `/schemas/_User` (exemplo):
 }
 ```
 
-## Ambiente implantado (atual)
-- Backend: hospedado no Render (https://desenrola-ai-teste.onrender.com), Node + Express + Parse SDK conectado ao Back4App.
-- Frontend: disponibilizado no Vercel (https://desenrola-front-testes.vercel.app).  
-  O `API_BASE` padrão aponta para a URL acima; pode ser sobrescrito em `window.API_BASE` ou `localStorage.apiBase` para testes locais.
-- CORS e chaves: manter apenas APP/JS/REST no Render; nao publicar a Master Key. Ajustar CORS_ALLOWED_ORIGINS se precisar restringir dominios.
-- Deploy do frontend: pode ser feito no Vercel (pasta frontend/web/public) apontando para a URL do backend.
 
-## Credenciais de teste
-- Cliente: `joaquim@gmail.com / 1234`
-- Prestador: `claudecir@gmail.com / 1234`
