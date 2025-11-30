@@ -55,41 +55,26 @@ flowchart TD
 - Backend: `cd backend && npm install`  
 - Frontend: `cd ../frontend/web && npm install`
 
-2) Criar app no Back4App  
-- Acesse https://www.back4app.com e crie conta.  
-- Crie um novo app Parse; em “Security & Keys” anote: Application ID, JavaScript Key, REST API Key, Server URL (`https://parseapi.back4app.com`).  
-- Guarde a Master Key apenas localmente.
 
-3) Criar classes (schema)  
-Via Dashboard (clique em Create Class) ou via REST com Master Key:  
-- `_User`: campos extras nome, telefone, role (CLIENTE/PRESTADOR), cep, logradouro, numero, bairro, cidade, uf.  
-- `Servico`: titulo, descricao, categoria, preco (String), prestadorId, prestadorNome, cidade, uf, cep, logradouro, numero, bairro, complemento, latitude (Number), longitude (Number).  
-- `Solicitacao`: servicoId, clienteId, prestadorId, status, servicoTitulo, servicoCategoria, servicoPreco (String), servicoPrestadorNome, clienteNome, prestadorNome, detalhes, endereço (cep/logradouro/numero/bairro/cidade/uf/complemento), latitude/longitude, geocode_precision.
-
-4) Configurar `.env` do backend  
-- Em `backend`, copie `.env.example` para `.env`.  
-- Preencha `PARSE_APP_ID`, `PARSE_JS_KEY`, `PARSE_REST_KEY`, `PARSE_SERVER_URL` (do Back4App).  
-- Porta padrão: `PORT=3001`. Não commitar a Master Key.
-
-5) Subir o backend (API)  
+2) Subir o backend (API)  
 - `cd backend && npm run dev`  
 - Verifique “Backend listening on port 3001”.
 
-6) Subir o frontend (web)  
+3) Subir o frontend (web)  
 - `cd frontend/web && npm run dev` (ou `npm start` se configurado)  
 - Acesse `http://localhost:3000` (chama a API em `http://localhost:3001` por padrão).
 
-7) Fluxo rápido para testar  
+4) Fluxo rápido para testar  
 - Crie conta em `auth.html` (cliente ou prestador).  
 - Prestador: cadastre um serviço em “Meus serviços”.  
 - Cliente: em “Serviços disponíveis”, clique “Solicitar contratação” e preencha detalhes/endereço.  
 - “Minhas solicitações”: cliente vê enviadas; prestador vê recebidas e pode aprovar/recusar/cancelar.
 
-8) Perfil  
+4.1) Perfil  
 - Menu suspenso → “Meu perfil”.  
 - Clique “Editar”, altere dados, “Salvar alterações”.
 
-9) Dicas rápidas  
+4.2) Dicas rápidas  
 - Se a API não responde, confira backend na porta 3001 e chaves no `.env`.  
 - Se o front não mostra dados, recarregue (Ctrl+Shift+R) e mantenha backend e frontend rodando.  
 - Nunca exponha a `PARSE_MASTER_KEY` em commits públicos.
@@ -173,8 +158,6 @@ PUT `/schemas/_User` (exemplo):
   }
 }
 ```
-
-Depois de criar, ajuste permissões no Dashboard (Class Level Permissions) e use apenas APP/JS/REST keys no código; a Master Key fica fora do repositório.
 
 ## Ambiente implantado (atual)
 - Backend: hospedado no Render (https://desenrola-ai-teste.onrender.com), Node + Express + Parse SDK conectado ao Back4App.
