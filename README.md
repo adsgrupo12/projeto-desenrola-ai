@@ -82,7 +82,7 @@ flowchart TD
 - Frontend: `cd ../frontend/web && npm install`
 
 2) Abra o navegador e acesse `localhost:3000`. No console (Clicar F12, no Windows), digitar `localStorage.apiBase='https://desenrola-ai-teste.onrender.com'; location.reload();` 
-Assim o front usa o backend em produção no Render. Para desenvolvimento completo (backend local), siga os passos abaixo.
+Assim o front usa o backend em produção no Render. Para desenvolvimento completo (backend local), faz-se necessário criar uma conta no Back4app e criar o app. É gratuito. A partir daí você pode criar o banco de dados conforme descrito na seção "(Opcional) Criar schema via REST".
 
 ### Fluxo rápido para testar  
 - Crie conta em `auth.html` (cliente ou prestador).  
