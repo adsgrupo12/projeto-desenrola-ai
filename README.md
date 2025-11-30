@@ -99,6 +99,13 @@ Assim o front usa o backend em produção no Render. Para desenvolvimento comple
 - Se o front não mostra dados, recarregue (Ctrl+Shift+R) e mantenha backend e frontend rodando.  
 - Nunca exponha a `PARSE_MASTER_KEY` em commits públicos.
 
+## 📹 Demonstração do Projeto
+
+Confira abaixo uma apresentação rápida mostrando as principais funcionalidades e o funcionamento geral da aplicação:
+
+[![Assista ao vídeo](https://img.youtube.com/vi/xq56L64_m1U/hqdefault.jpg)](https://youtu.be/xq56L64_m1U)
+
+🔗 **Link direto para o vídeo:** https://youtu.be/xq56L64_m1U
 
 
 ### (Opcional) Criar schema via REST (Postman/Insomnia)
