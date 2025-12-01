@@ -46,6 +46,14 @@ flowchart TD
 - `docs/`: requisitos, arquitetura, modelo de dados e documentação de API
 - `prototypes/`: protótipos Figma (web e mobile)
 - `validation/`: público-alvo, relatório e evidências de validação
+
+## 📹 Demonstração do Projeto
+
+Confira abaixo uma apresentação rápida mostrando as principais funcionalidades e o funcionamento geral da aplicação:
+
+[![Assista ao vídeo](https://img.youtube.com/vi/xq56L64_m1U/hqdefault.jpg)](https://youtu.be/xq56L64_m1U)
+
+🔗 **Link direto para o vídeo:** https://youtu.be/xq56L64_m1U
   
 ## Ambiente implantado (atual)
 - Backend: hospedado no Render (https://desenrola-ai-teste.onrender.com), Node + Express + Parse SDK conectado ao Back4App.
@@ -99,13 +107,7 @@ Assim o front usa o backend em produção no Render. Para desenvolvimento comple
 - Se o front não mostra dados, recarregue (Ctrl+Shift+R) e mantenha backend e frontend rodando.  
 - Nunca exponha a `PARSE_MASTER_KEY` em commits públicos.
 
-## 📹 Demonstração do Projeto
 
-Confira abaixo uma apresentação rápida mostrando as principais funcionalidades e o funcionamento geral da aplicação:
-
-[![Assista ao vídeo](https://img.youtube.com/vi/xq56L64_m1U/hqdefault.jpg)](https://youtu.be/xq56L64_m1U)
-
-🔗 **Link direto para o vídeo:** https://youtu.be/xq56L64_m1U
 
 
 ### (Opcional) Criar schema via REST (Postman/Insomnia)
@@ -187,5 +189,24 @@ PUT `/schemas/_User` (exemplo):
   }
 }
 ```
+## Cronograma para Etapa 2 (N708)
+| Fase | Atividades principais | Data prevista |
+|------|------------------------|---------------|
+| 1. Iniciacao | Revisao do planejamento e alinhamento com orientador | 02-09-2025 |
+| 2. Planejamento detalhado | Refinamento de requisitos e modelagem final (Parse classes, Cloud Code) | 05-09-2025 |
+| 3. Configuração do Ambiente de desenvolvimento | Ambiente de desenvolvimento pronto (ferramentas, repositório, etc) | 08-09-2025 |
+| 4. Implementação – Parte 1 | Implementação dos requisitos RF11 a RF14 (Front-end e Back-end) | 19-09-2025 |
+| 5. Entrega parcial | Entrega da atividade completa da disciplina N705 e N703 (Testes de integração das APIs, Documentação e implementação dos requisitos RF11 a RF14| 27-09-2025 |
+| 6. Implementação – Parte 2 | Implementação dos requisitos RF01 a RF10 | 17-10-2025 | 
+| 7. Testes | Testes com Postman e validacao de fluxos | 24-10-2025 |
+| 8. Encerramento | Ajustes finais e entrega oficial | 07-11-2025 |
 
+## Integrantes da equipe e papeis
+- **Francisco Riomar Barros Filho** – Product Owner, UX/UI, Responsável pela documentação, desenvolvedor FullStack
+- **Francisco Augusto de Oliveira Filho** – Dev Frontend
+- **Lucas Pires Albuquerque** – Dev Frontend
+- **Cezarnildo Moreira da Silva** – Dev Backend
+- **Jose Claudecir Silva de Lima** – Dev Backend
+- **Francisco Rodrigues de Oliveira Lima** – analista de testes e qualidade
+  
 
